@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- <property
+		name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property> -->
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3306/proyectohibernatejcmd?createDatabaseIfNotExist=true</property>
+		<property name="hibernate.connection.username">juancarlos</property>
+		<property name="hibernate.connection.password">juancarlos</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<!-- Muestra la traducción sql -->
+		<property name="hibernate.show_sql">true</property>
+		<!--  Formatea ese sql -->
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.use_sql_comments">true</property>
+		<!-- crea el esquema de la base de datos -->
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<mapping class="modelo.Estudiante" />
+		<mapping class="modelo.CasaMagica" />
+		<mapping class="modelo.CriaturaMagica" />
+		<mapping class="modelo.CursoMagico" />
+		<mapping class="modelo.EventoMagico" />
+		<mapping class="modelo.Profesor" />
+	</session-factory>
+</hibernate-configuration>
