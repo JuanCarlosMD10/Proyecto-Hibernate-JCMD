@@ -86,7 +86,7 @@ public class CursoMagico {
 	 * 
 	 * @return El id del curso mágico.
 	 */
-	public int getIdCursoMagico() {
+	public int getId() {
 		return idCursoMagico;
 	}
 

@@ -100,7 +100,7 @@ public class Estudiante {
 	 * 
 	 * @return El id del estudiante.
 	 */
-	public int getIdEstudiante() {
+	public int getId() {
 		return idEstudiante;
 	}
 

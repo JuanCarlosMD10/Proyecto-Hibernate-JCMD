@@ -95,7 +95,7 @@ public class EventoMagico {
 	 * 
 	 * @return El identificador único del evento mágico.
 	 */
-	public int getIdEventoMagico() {
+	public int getId() {
 		return idEventoMagico;
 	}
 

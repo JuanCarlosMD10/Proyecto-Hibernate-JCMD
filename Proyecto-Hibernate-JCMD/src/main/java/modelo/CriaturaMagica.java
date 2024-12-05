@@ -83,7 +83,7 @@ public class CriaturaMagica {
 	 * 
 	 * @return El id de la criatura mágica.
 	 */
-	public int getIdCriaturaMagica() {
+	public int getId() {
 		return idCriaturaMagica;
 	}
 

@@ -74,6 +74,21 @@ public class Profesor {
 	}
 
 	/**
+	 * @param nombreProfesor
+	 * @param especialidadProfesor
+	 * @param nivelMagicoProfesor
+	 * @param experienciaProfesor
+	 */
+	public Profesor(String nombreProfesor, String especialidadProfesor, String nivelMagicoProfesor,
+			int experienciaProfesor) {
+		super();
+		this.nombreProfesor = nombreProfesor;
+		this.especialidadProfesor = especialidadProfesor;
+		this.nivelMagicoProfesor = nivelMagicoProfesor;
+		this.experienciaProfesor = experienciaProfesor;
+	}
+
+	/**
 	 * Constructor con parámetros para crear un profesor.
 	 * 
 	 * @param nombreProfesor       El nombre del profesor.
@@ -97,7 +112,7 @@ public class Profesor {
 	 * 
 	 * @return El identificador único del profesor.
 	 */
-	public int getIdProfesor() {
+	public int getId() {
 		return idProfesor;
 	}
 

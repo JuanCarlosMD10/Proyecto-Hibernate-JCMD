@@ -95,7 +95,7 @@ public class CasaMagica {
 	 * 
 	 * @return El id de la casa mágica.
 	 */
-	public int getIdCasaMagica() {
+	public int getId() {
 		return idCasaMagica;
 	}
 
