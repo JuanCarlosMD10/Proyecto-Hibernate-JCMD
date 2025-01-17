@@ -44,9 +44,9 @@ public class Controlador {
 		CasaMagica slytherin = new CasaMagica("Slytherin");
 
 		// Crear estudiantes
-		Estudiante harry = new Estudiante("Harry Potter", 15, "Intermedio", "Acebo y pluma de fénix");
+		Estudiante harry = new Estudiante("Harry Potter", 14, "Intermedio", "Acebo y pluma de fénix");
 		Estudiante hermione = new Estudiante("Hermione Granger", 15, "Avanzado", "Vid y nervio de dragón");
-		Estudiante draco = new Estudiante("Draco Malfoy", 15, "Intermedio", "Espino y pelo de unicornio");
+		Estudiante draco = new Estudiante("Draco Malfoy", 13, "Intermedio", "Espino y pelo de unicornio");
 
 		// Crear conjunto de estudiantes para casas mágicas
 		Set<Estudiante> estudiantesGryffindor = new HashSet<>();
@@ -109,6 +109,9 @@ public class Controlador {
 		EventoMagico halloween = new EventoMagico("Fiesta de Halloween",
 				"Celebración mágica con disfraces y comida especial", LocalDate.now().plusWeeks(1).toString(),
 				"Jardines de Hogwarts");
+		EventoMagico guerra = new EventoMagico("Guerra de Hogwarts",
+				"Guerra entre el ejército de Voldemort y el de Harry Potter", LocalDate.now().plusMonths(6).toString(),
+				"Hogwarts");
 
 		// Crear registros en la base de datos usando el servicio
 		servicio.crearCasaMagica(gryffindor);
@@ -123,15 +126,22 @@ public class Controlador {
 
 		servicio.crearEventoMagico(torneo);
 		servicio.crearEventoMagico(halloween);
+		servicio.crearEventoMagico(guerra);
 
 		// Asignar estudiantes a eventos
 		torneo.getEstudiantes().add(harry);
 		halloween.getEstudiantes().add(draco);
 		halloween.getEstudiantes().add(hermione);
+		guerra.getEstudiantes().add(harry);
+		guerra.getEstudiantes().add(hermione);
+		guerra.getEstudiantes().add(draco);
 
 		harry.getEventos().add(torneo);
 		hermione.getEventos().add(halloween);
 		draco.getEventos().add(halloween);
+		harry.getEventos().add(guerra);
+		hermione.getEventos().add(guerra);
+		draco.getEventos().add(guerra);
 
 		// Asignar criaturas a eventos
 		colacuernoHungaro.getEventos().add(torneo);
@@ -146,7 +156,7 @@ public class Controlador {
 		// Actualizar registros en la base de datos usando el servicio
 		// Actualizar valores de las casas mágicas
 		gryffindor.setLemaCasaMagica("El coraje y la amistad son nuestra fuerza");
-		gryffindor.setPuntuacionTotalCasaMagica(150);
+		gryffindor.setPuntuacionTotalCasaMagica(49);
 		slytherin.setLemaCasaMagica("La astucia y la ambición nos definen");
 		// Actualizar casas mágicas
 		servicio.actualizarCasaMagica(gryffindor);
@@ -277,5 +287,40 @@ public class Controlador {
 			EventoMagico evento = eventoTorneo.get();
 			System.out.println("Evento Mágico (ID 1): " + evento.getNombreEventoMagico());
 		}
+
+		// Llamadas a consultas
+		CasaMagica primeraCasa = servicio.obtenerPrimeraCasaMagica();
+		System.out.println("Primera casa mágica: " + primeraCasa.getNombreCasaMagica());
+
+		List<String> casasConAltaPuntuacion = servicio.obtenerCasasConPuntuacionMayor(50);
+		System.out.println("Casas con puntuación mayor a 50: " + casasConAltaPuntuacion);
+
+		List<Estudiante> nombresEstudiantes = servicio.obtenerNombresEstudiantes();
+		System.out.println("Nombres de los estudiantes: " + nombresEstudiantes);
+
+		List<Estudiante[]> nombresYEdades = servicio.obtenerNombresYEdadesEstudiantes();
+		for (Object[] datos : nombresYEdades) {
+			System.out.println("Estudiante: " + datos[0] + ", Edad: " + datos[1]);
+		}
+
+		List<Estudiante> estudiantesDeCasa = servicio.obtenerEstudiantesPorCasa(1);
+		System.out.println("Estudiantes de la Casa con ID 1: " + estudiantesDeCasa);
+
+		Double promedioEdad = servicio.obtenerPromedioEdadEstudiantes();
+		System.out.println("Promedio de edad de los estudiantes: " + promedioEdad);
+
+		Long totalCursos = servicio.contarCursosMagicos();
+		System.out.println("Total de cursos mágicos: " + totalCursos);
+
+		List<EventoMagico[]> eventosEnLugar = servicio.obtenerEventosPorUbicacionOrdenados("Hogwarts");
+		for (Object[] evento : eventosEnLugar) {
+			System.out.println("Evento: " + evento[0] + ", Fecha: " + evento[1]);
+		}
+
+		// Llamada al servicio para los ejercicios con CriteriaBuilder
+		// Actualizar la puntuación de una casa mágica
+		servicio.actualizarPuntuacionCasa(200, "Gryffindor");
+		// Eliminar un estudiante pasándole el nombre
+		servicio.eliminarEstudiantePorNombre("Draco Malfoy");
 	}
 }

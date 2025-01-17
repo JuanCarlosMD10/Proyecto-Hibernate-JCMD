@@ -29,6 +29,8 @@ public class Servicio {
 	private EventoMagicoDao eventoMagicoDao = new EventoMagicoDao();
 	private ProfesorDao profesorDao = new ProfesorDao();
 
+	// Operaciones CRUD
+
 	/**
 	 * Crea una nueva casa mágica.
 	 * 
@@ -320,4 +322,144 @@ public class Servicio {
 	public void eliminarProfesor(Profesor profesor) {
 		profesorDao.delete(profesor);
 	}
+
+	// Métodos avanzados
+
+	// CasaMagicaDao
+	/**
+	 * Obtiene la primera casa mágica almacenada en la base de datos.
+	 * 
+	 * Esta consulta limita el número de resultados devueltos a 1 y ordena las casas
+	 * mágicas por su identificador en orden ascendente.
+	 * 
+	 * @return La primera casa mágica encontrada en la base de datos.
+	 */
+	public CasaMagica obtenerPrimeraCasaMagica() {
+		return casaMagicaDao.obtenerPrimeraCasaMagica();
+	}
+
+	/**
+	 * Obtiene una lista con los nombres de las casas mágicas cuya puntuación total
+	 * es mayor que el valor especificado.
+	 * 
+	 * Esta consulta filtra las casas mágicas en función de su puntuación y devuelve
+	 * únicamente sus nombres.
+	 * 
+	 * @param minPuntuacion La puntuación mínima requerida.
+	 * @return Una lista de nombres de casas mágicas que cumplen con la condición.
+	 */
+	public List<String> obtenerCasasConPuntuacionMayor(int minPuntuacion) {
+		return casaMagicaDao.obtenerCasasConPuntuacionMayor(minPuntuacion);
+	}
+
+	// EstudianteDao
+	/**
+	 * Obtiene una lista con los nombres de todos los estudiantes registrados en la
+	 * base de datos.
+	 * 
+	 * Esta consulta devuelve únicamente el campo del nombre de los estudiantes.
+	 * 
+	 * @return Una lista con los nombres de todos los estudiantes.
+	 */
+	public List<Estudiante> obtenerNombresEstudiantes() {
+		return estudianteDao.obtenerNombresEstudiantes();
+	}
+
+	/**
+	 * Obtiene una lista con los nombres y las edades de todos los estudiantes
+	 * registrados en la base de datos.
+	 * 
+	 * Esta consulta devuelve múltiples campos (nombre y edad) de cada estudiante.
+	 * 
+	 * @return Una lista de arrays de objetos, donde cada array contiene el nombre y
+	 *         la edad de un estudiante.
+	 */
+	public List<Estudiante[]> obtenerNombresYEdadesEstudiantes() {
+		return estudianteDao.obtenerNombresYEdadesEstudiantes();
+	}
+
+	/**
+	 * Obtiene una lista con los nombres de los estudiantes que pertenecen a una
+	 * casa mágica específica.
+	 * 
+	 * Esta consulta está parametrizada para filtrar los estudiantes según el
+	 * identificador de su casa.
+	 * 
+	 * @param idCasa El identificador de la casa mágica.
+	 * @return Una lista con los nombres de los estudiantes que pertenecen a la casa
+	 *         especificada.
+	 */
+	public List<Estudiante> obtenerEstudiantesPorCasa(int idCasa) {
+		return estudianteDao.obtenerEstudiantesPorCasa(idCasa);
+	}
+
+	/**
+	 * Calcula el promedio de edad de todos los estudiantes registrados en la base
+	 * de datos.
+	 * 
+	 * Esta consulta utiliza la función de agregación AVG para obtener el promedio.
+	 * 
+	 * @return El promedio de edad de los estudiantes como un valor decimal.
+	 */
+	public Double obtenerPromedioEdadEstudiantes() {
+		return estudianteDao.obtenerPromedioEdadEstudiantes();
+	}
+
+	// CursoMagicoDao
+	/**
+	 * Cuenta el número total de cursos mágicos registrados en la base de datos.
+	 * 
+	 * Esta consulta utiliza la función de agregación COUNT para calcular la
+	 * cantidad.
+	 * 
+	 * @return El número total de cursos mágicos registrados.
+	 */
+	public Long contarCursosMagicos() {
+		return cursoMagicoDao.contarCursosMagicos();
+	}
+
+	// EventoMagicoDao
+	/**
+	 * Obtiene una lista de eventos mágicos que se llevan a cabo en una ubicación
+	 * específica, ordenados por fecha.
+	 * 
+	 * Esta consulta filtra los eventos mágicos según su ubicación y los ordena en
+	 * orden ascendente por su fecha.
+	 * 
+	 * @param ubicacion La ubicación específica donde se realizarán los eventos.
+	 * @return Una lista de arrays de objetos, donde cada array contiene el nombre y
+	 *         la fecha de un evento mágico.
+	 */
+	public List<EventoMagico[]> obtenerEventosPorUbicacionOrdenados(String ubicacion) {
+		return eventoMagicoDao.obtenerEventosPorUbicacionOrdenados(ubicacion);
+	}
+
+	// Ejercicios con CriteriaBuilder
+	/**
+	 * Actualiza la puntuación total de una casa mágica específica basada en su
+	 * nombre.
+	 * 
+	 * Esta operación utiliza CriteriaBuilder para construir dinámicamente una
+	 * consulta de actualización.
+	 * 
+	 * @param nuevaPuntuacion La nueva puntuación a asignar a la casa.
+	 * @param nombreCasa      El nombre de la casa mágica cuyo valor será
+	 *                        actualizado.
+	 */
+	public void actualizarPuntuacionCasa(int nuevaPuntuacion, String nombreCasa) {
+		casaMagicaDao.actualizarPuntuacionCasa(nuevaPuntuacion, nombreCasa);
+	}
+
+	/**
+	 * Elimina un estudiante de la base de datos según su nombre.
+	 * 
+	 * Esta operación utiliza CriteriaBuilder para construir dinámicamente una
+	 * consulta de eliminación.
+	 * 
+	 * @param nombreEstudiante El nombre del estudiante que será eliminado.
+	 */
+	public void eliminarEstudiantePorNombre(String nombreEstudiante) {
+		estudianteDao.eliminarEstudiantePorNombre(nombreEstudiante);
+	}
+
 }
